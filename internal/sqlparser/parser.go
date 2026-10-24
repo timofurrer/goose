@@ -9,7 +9,6 @@ import (
 	"log"
 	"os"
 	"strings"
-	"sync"
 
 	"github.com/mfridman/interpolate"
 )
@@ -85,13 +84,6 @@ const (
 	scanBufSize        = 4 * 1024 * 1024
 	initialScanBufSize = 64 * 1024
 )
-
-var bufferPool = sync.Pool{
-	New: func() any {
-		buf := make([]byte, scanBufSize)
-		return &buf
-	},
-}
 
 // Split given SQL script into individual statements and return
 // SQL statements for given direction (up=true, down=false).
